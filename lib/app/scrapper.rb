@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'pry'
 require 'open-uri'
 require 'json'
-
+require 'csv'
 class Scrapper
 
 
@@ -35,9 +35,20 @@ def save_as_JSON(array_final) #permet d envoyer nos donnes dans le fichier Json
   end
 end
 
+def save_as_CSV(array_final)
+  CSV.open("/home/s/thp/scrapper_json_csv/db/emails.csv", "wb") do |csv|
+    array_final.each do |h|
+      h.each do |h|
+     csv << h
+      end
+    end
+  end
+end
+
 def perform 
  array_final = get_townhall_urls
  save_as_JSON(array_final)
+ save_as_CSV(array_final)
 end
 
 end
